@@ -220,3 +220,7 @@ def addProduct(request):
 def seller(request):
     return render(request , "sellerhome.html")
 
+
+
+def cart(request):
+    return render(request , "cart.html")

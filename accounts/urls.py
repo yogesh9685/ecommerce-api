@@ -1,5 +1,5 @@
 from django.urls import path , include
-from .views import RegisterView, ProfileView ,LoginView ,OtpView ,home ,  seller ,  addProduct , ProductListView , CategoryListView ,  logout_view , seller
+from .views import RegisterView, ProfileView ,LoginView ,OtpView ,home , cart,  seller ,  addProduct , ProductListView , CategoryListView ,  logout_view , seller
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
@@ -24,5 +24,7 @@ urlpatterns = [
 
     path('add/' , addProduct),
 
-    path('seller/' , seller)
+    path('seller/' , seller),
+
+    path("cart/" , cart),
 ] 
