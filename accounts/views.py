@@ -224,3 +224,7 @@ def seller(request):
 
 def cart(request):
     return render(request , "cart.html")
+
+
+def transaction(request):
+    return render(request , "home.html")
