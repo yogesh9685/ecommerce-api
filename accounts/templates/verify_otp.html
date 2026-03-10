@@ -1,0 +1,68 @@
+
+<html>
+<head>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="flex items-center justify-center h-screen">
+
+{% csrf_token %}
+
+<div class="bg-white p-6 shadow w-80">
+
+<input id="otp" placeholder="Enter OTP" class="border p-2 w-full mb-2">
+
+<button onclick="verify()" class="bg-green-500 text-white p-2 w-full">
+Verify OTP
+</button>
+
+</div>
+
+<script>
+
+function getCSRFToken(){
+return document.querySelector('[name=csrfmiddlewaretoken]').value;
+}
+
+function verify(){
+
+fetch("/accounts/otp/",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json",
+"X-CSRFToken":getCSRFToken()
+},
+
+body:JSON.stringify({
+otp:document.getElementById("otp").value
+})
+
+})
+
+.then(res=>res.json())
+
+.then(data=>{
+
+console.log("data is" , data)
+
+if(data.message){
+
+alert("Registration Successful")
+window.location.href="/accounts/login/"
+
+}else{
+
+alert(data.error)
+
+}
+
+})
+
+}
+
+</script>
+
+</body>
+</html>

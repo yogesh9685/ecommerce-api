@@ -1,0 +1,76 @@
+{% extends "baseseller.html" %}
+
+{% block content %}
+
+<div class="bg-gray-200 flex justify-center items-center h-screen">
+
+<div class="bg-white p-7 rounded shadow-md w-96">
+
+<h2 class="text-2xl font-bold mb-6">Add Product</h2>
+
+<form id="productForm" enctype="multipart/form-data" class="space-y-4">
+
+<input type="text" id="name" placeholder="Product Name" class="w-full border p-2 rounded">
+
+<input type="number" id="price" placeholder="Price" class="w-full border p-2 rounded">
+
+<textarea id="description" placeholder="Description" class="w-full border p-2 rounded"></textarea>
+
+<input type="number" id="category" placeholder="Category ID" class="w-full border p-2 rounded">
+
+<input type="number" id="seller" placeholder="seller" class="w-full border p-2 rounded">
+
+<input type="number" id="stock" placeholder="stock" class="w-full border p-2 rounded">
+
+<input type="file" id="image" class="w-full border p-2 rounded">
+
+<button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded w-full">
+Add Product
+</button>
+
+</form>
+
+<p id="msg" class="mt-4 text-green-600"></p>
+
+</div>
+</div>
+
+<script>
+
+document.getElementById("productForm").addEventListener("submit", function(e){
+
+e.preventDefault()
+
+let formData = new FormData()
+
+formData.append("name", document.getElementById("name").value)
+formData.append("price", document.getElementById("price").value)
+formData.append("description", document.getElementById("description").value)
+formData.append("seller", document.getElementById("seller").value)
+formData.append("stock", document.getElementById("stock").value)
+formData.append("category", document.getElementById("category").value)
+formData.append("image", document.getElementById("image").files[0])
+
+fetch("/accounts/products/",{
+
+method:"POST",
+
+headers:{
+"Authorization":"Bearer "+localStorage.getItem("access")
+},
+
+body:formData
+
+})
+.then(res=>res.json())
+.then(data=>{
+console.log(data)
+document.getElementById("msg").innerText = "Product added successfully"
+
+})
+
+})
+
+</script>
+
+{% endblock %}

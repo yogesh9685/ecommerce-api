@@ -1,0 +1,34 @@
+<html>
+<head>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+
+<h2>User Profile</h2>
+
+<div id="user"></div>
+
+<script>
+
+fetch("/accounts/profile/",{
+
+headers:{
+"Authorization":"Bearer "+localStorage.getItem("access")
+}
+
+})
+.then(res=>res.json())
+.then(data=>{
+
+document.getElementById("user").innerHTML = `
+Username: ${data.username} <br>
+Email: ${data.email}
+`
+
+})
+
+</script>
+
+</body>
+</html>

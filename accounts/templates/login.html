@@ -1,0 +1,68 @@
+
+<html>
+<head>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="flex justify-center items-center h-screen bg-gray-100">
+
+<div class="bg-white p-6 shadow w-96 rounded">
+
+<h2 class="text-xl font-bold mb-4">Login</h2>
+
+<input id="username" placeholder="Username" class="border p-2 w-full mb-2">
+
+<input id="password" type="password" placeholder="Password" class="border p-2 w-full mb-3">
+
+<button onclick="login()" class="bg-blue-500 text-white p-2 w-full rounded">
+Login
+</button>
+
+</div>
+
+<script>
+
+function login(){
+
+fetch("/accounts/login/",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+username:document.getElementById("username").value,
+password:document.getElementById("password").value
+
+})
+
+})
+
+.then(res=>res.json())
+
+.then(data=>{
+if(data.access){
+
+localStorage.setItem("access",data.access)
+localStorage.setItem("refresh",data.refresh)
+alert("Login Success")
+
+window.location.href="/accounts/home/"
+
+}else{
+
+alert("Login Failed")
+
+}
+
+})
+
+}
+
+</script>
+
+</body>
+</html>
